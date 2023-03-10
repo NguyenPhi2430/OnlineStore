@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreSolution", "OnlineStoreSolution\OnlineStoreSolution.csproj", "{7F5E40B5-E03D-4F30-AAD9-D157FB0EFDCF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStoreSolution", "OnlineStoreSolution\OnlineStoreSolution.csproj", "{7F5E40B5-E03D-4F30-AAD9-D157FB0EFDCF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreSolution.Data", "OnlineStoreSolution.Data\OnlineStoreSolution.Data.csproj", "{B43BF597-3F5F-4ABA-94CE-B80086C10FE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStoreSolution.Data", "OnlineStoreSolution.Data\OnlineStoreSolution.Data.csproj", "{B43BF597-3F5F-4ABA-94CE-B80086C10FE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStoreSolution.App", "OnlineStoreSolution.App\OnlineStoreSolution.App.csproj", "{C8086159-0722-42B9-9137-906A76224CAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnlineStoreSolution.App", "OnlineStoreSolution.App\OnlineStoreSolution.App.csproj", "{C8086159-0722-42B9-9137-906A76224CAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1D6F2975-7855-4209-A44D-92B5CA5B802F}"
+	ProjectSection(SolutionItems) = preProject
+		readme.txt = readme.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
