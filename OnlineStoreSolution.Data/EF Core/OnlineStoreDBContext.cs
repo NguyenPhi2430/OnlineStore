@@ -12,12 +12,8 @@ namespace OnlineStoreSolution.Data.EF_Core
 {
     public class OnlineStoreDBContext : DbContext
     {
-        private const string connectionString = "";
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(connectionString);
-        }
+        public OnlineStoreDBContext(DbContextOptions<OnlineStoreDBContext> options) : base(options) { }
+ 
 
         // Configure Entities
         protected override void OnModelCreating(ModelBuilder modelBuilder)
