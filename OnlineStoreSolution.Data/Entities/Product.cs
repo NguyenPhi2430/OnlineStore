@@ -17,6 +17,8 @@ namespace OnlineStoreSolution.Data.Entities
         public int Stock { get; set; }
         public int Views { get; set; }
         public string SeoAlias { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
+        public List<ProductInCategory> ProductInCategories { get; set; }
+        public List<OrderDetails> OrderDetails { get; set; }
     }
 }
