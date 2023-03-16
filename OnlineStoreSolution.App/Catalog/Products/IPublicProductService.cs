@@ -9,6 +9,6 @@ namespace OnlineStoreSolution.App.Catalog.Products
 {
     public interface IPublicProductService
     {
-        Task<PagedViewModel<ProductViewModel>> GetAllByCategoryId(PagedViewRequest request);
+        Task<PagedViewModel<ProductViewModel>> GetAllByCategoryId(PagedViewRequestPublic request);
     }
 }

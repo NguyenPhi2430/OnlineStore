@@ -17,7 +17,7 @@ namespace OnlineStoreSolution.App.Catalog.Products
         {
             _context = context;
         }
-        public async Task<PagedViewModel<ProductViewModel>> GetAllByCategoryId(PagedViewRequest request)
+        public async Task<PagedViewModel<ProductViewModel>> GetAllByCategoryId(PagedViewRequestPublic request)
         {
             // Select
             var query = from p in _context.Products
