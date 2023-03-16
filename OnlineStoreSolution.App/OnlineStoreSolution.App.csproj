@@ -23,4 +23,9 @@
     <PackageReference Include="System.Diagnostics.Tools" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineShop.Ultilities\OnlineShop.Ultilities.csproj" />
+    <ProjectReference Include="..\OnlineStoreSolution.Data\OnlineStoreSolution.Data.csproj" />
+  </ItemGroup>
+
 </Project>
