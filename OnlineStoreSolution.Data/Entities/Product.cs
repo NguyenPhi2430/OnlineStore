@@ -21,5 +21,6 @@ namespace OnlineStoreSolution.Data.Entities
         public DateTime? Date { get; set; }
         public List<ProductInCategory> ProductInCategories { get; set; }
         public List<OrderDetails> OrderDetails { get; set; }
+        public List<Cart> Carts { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineStoreSolution.Data.EF_Core;
 
@@ -11,9 +12,11 @@ using OnlineStoreSolution.Data.EF_Core;
 namespace OnlineStoreSolution.Data.Migrations
 {
     [DbContext(typeof(OnlineStoreDBContext))]
-    partial class OnlineStoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230316172758_Identity")]
+    partial class Identity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,13 +102,6 @@ namespace OnlineStoreSolution.Data.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.ToTable("UserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 101,
-                            RoleId = 101
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -291,7 +287,7 @@ namespace OnlineStoreSolution.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Date = new DateTime(2023, 3, 17, 0, 40, 51, 410, DateTimeKind.Local).AddTicks(6245),
+                            Date = new DateTime(2023, 3, 17, 0, 27, 58, 591, DateTimeKind.Local).AddTicks(4478),
                             Description = "Description 1",
                             Name = "Product 1",
                             Price = 20000m,
@@ -341,16 +337,6 @@ namespace OnlineStoreSolution.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 101,
-                            ConcurrencyStamp = "d0b52b7d-698b-4548-9f36-5ec8657d3e74",
-                            Desc = "Adminnistrator",
-                            Name = "admin",
-                            NormalizedName = "admin"
-                        });
                 });
 
             modelBuilder.Entity("OnlineStoreSolution.Data.Entities.User", b =>
@@ -419,27 +405,6 @@ namespace OnlineStoreSolution.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 101,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7036bcb5-96d1-4901-a295-c5f88e5d8c3e",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "admin@gmail.com",
-                            NormalizedUserName = "admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEI5DjGfaIqGzdHIvNr7WRSZirNzIPAKWHKeTkjPa0CJltDWw/7X0ifXeb02d3eE0OA==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin",
-                            dateOfBirth = new DateTime(1996, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            firstName = "Nguyen",
-                            lastName = "Phi"
-                        });
                 });
 
             modelBuilder.Entity("OnlineStoreSolution.Data.Entities.Cart", b =>
