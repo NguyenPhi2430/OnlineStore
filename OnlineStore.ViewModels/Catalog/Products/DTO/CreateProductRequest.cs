@@ -1,12 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace OnlineStoreSolution.App.Catalog.Products.DTO
+namespace OnlineStoreSolution.ViewModels.Catalog.Products.DTO
 {
     public class CreateProductRequest
     {
@@ -16,5 +10,6 @@ namespace OnlineStoreSolution.App.Catalog.Products.DTO
         public int Stock { get; set; }
         public int Views { get; set; }
         public DateTime? Date { get; set; }
+        public IFormFile ThumbnailImage { get; set; }
     }
 }

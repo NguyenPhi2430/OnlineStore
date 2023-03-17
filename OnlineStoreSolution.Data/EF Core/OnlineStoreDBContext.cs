@@ -50,6 +50,7 @@ namespace OnlineStoreSolution.Data.EF_Core
         public DbSet<Order> Orders { get; set;}
         public DbSet<OrderDetails> OrdersDetails { get; set;}
         public DbSet<ProductInCategory> ProductInCategories { get; set;}
+        public DbSet<ProductImage> ProductImages { get; set; }
 
     }
 }

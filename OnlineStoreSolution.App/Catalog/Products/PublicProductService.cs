@@ -1,13 +1,9 @@
-﻿using OnlineStoreSolution.App.Catalog.Products.DTO;
+﻿using OnlineStoreSolution.ViewModels.Catalog.Products.DTO;
 using OnlineStoreSolution.Data.EF_Core;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OnlineStore.ViewModels.Base;
 
-namespace OnlineStoreSolution.App.Catalog.Products
+namespace OnlineStoreSolution.ViewModels.Catalog.Products
 {
     public class PublicProductService : IPublicProductService
     {

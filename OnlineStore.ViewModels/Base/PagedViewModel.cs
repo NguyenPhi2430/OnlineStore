@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineStoreSolution.App.Catalog.Products.DTO
+namespace OnlineStore.ViewModels.Base
 {
     public class PagedViewModel<T>
     {

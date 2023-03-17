@@ -19,13 +19,22 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.4" />
     <PackageReference Include="System.Diagnostics.Tools" Version="4.3.0" />
   </ItemGroup>
+    <ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+    </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OnlineShop.Ultilities\OnlineShop.Ultilities.csproj" />
+    <ProjectReference Include="..\OnlineStore.ViewModels\OnlineStore.ViewModels.csproj" />
     <ProjectReference Include="..\OnlineStoreSolution.Data\OnlineStoreSolution.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Catalog\Products\DTO\" />
   </ItemGroup>
 
 </Project>
