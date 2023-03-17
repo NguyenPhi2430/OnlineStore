@@ -1,7 +1,9 @@
 ﻿using OnlineStoreSolution.ViewModels.Catalog.Products.DTO;
 using OnlineStoreSolution.Data.EF_Core;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
+
 using OnlineStore.ViewModels.Base;
+using Azure.Core;
 
 namespace OnlineStoreSolution.ViewModels.Catalog.Products
 {
@@ -13,6 +15,26 @@ namespace OnlineStoreSolution.ViewModels.Catalog.Products
         {
             _context = context;
         }
+
+        public async Task<List<ProductViewModel>> GetAllAsync()
+        {
+            var query = from p in _context.Products
+                        select new { p };
+
+            var data = await query.Select(x => new ProductViewModel()
+            {
+                Id = x.p.Id,
+                Name = x.p.Name,
+                Description = x.p.Description,
+                SeoAlias = x.p.SeoAlias,
+                Date = x.p.Date,
+                Views = x.p.Views,
+                Stock = x.p.Stock,
+                Price = x.p.Price,
+            }).ToListAsync();
+            return data;
+        }
+
         public async Task<PagedViewModel<ProductViewModel>> GetAllByCategoryId(PagedViewRequestPublic request)
         {
             // Select

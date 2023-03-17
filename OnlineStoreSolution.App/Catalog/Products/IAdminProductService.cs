@@ -17,7 +17,7 @@ namespace OnlineStoreSolution.ViewModels.Catalog.Products
         Task<bool> UpdatePrice(int productId, decimal newPrice);
         Task UpdateView(int productId);
         Task<int> Delete(int productId);
-        Task<PagedViewModel<ProductViewModel>> GetAllPaging(PagedViewRequest request);
+        Task<PagedViewModel<ProductViewModel>> GetAllPaging(PagedViewRequestAdmin request);
         Task<int> AddImages(int productId, List<IFormFile> images);
         Task<int> DeleteImages(int productId);
         Task<int> UpdateImage(int imageId, string caption, bool IsDefault);

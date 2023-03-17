@@ -11,5 +11,6 @@ namespace OnlineStoreSolution.ViewModels.Catalog.Products
     public interface IPublicProductService
     {
         Task<PagedViewModel<ProductViewModel>> GetAllByCategoryId(PagedViewRequestPublic request);
+        Task<List<ProductViewModel>> GetAllAsync(); 
     }
 }

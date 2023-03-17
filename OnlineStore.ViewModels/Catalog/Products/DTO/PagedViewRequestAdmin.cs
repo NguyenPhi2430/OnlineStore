@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineStoreSolution.ViewModels.Catalog.Products.DTO
 {
-    public class PagedViewRequest : PagingBase
+    public class PagedViewRequestAdmin : PagingBase
     {
         public string keyword { get; set; }
         public List<int> categoryId { get; set; }

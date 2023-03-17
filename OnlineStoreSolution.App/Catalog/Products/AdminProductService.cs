@@ -93,7 +93,7 @@ namespace OnlineStoreSolution.App.Catalog.Products
             return await _context.SaveChangesAsync();
         }
 
-        public async Task<PagedViewModel<ProductViewModel>> GetAllPaging(PagedViewRequest request)
+        public async Task<PagedViewModel<ProductViewModel>> GetAllPaging(PagedViewRequestAdmin request)
         {
             // Select
             var query = from p in _context.Products
