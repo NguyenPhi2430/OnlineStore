@@ -22,5 +22,6 @@ namespace OnlineStoreSolution.Data.Entities
         public List<ProductInCategory> ProductInCategories { get; set; }
         public List<OrderDetails> OrderDetails { get; set; }
         public List<Cart> Carts { get; set; }
+        public List<ProductImage> ProductImages { get; set; }
     }
 }

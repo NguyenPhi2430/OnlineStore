@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineStoreSolution.Data.EF_Core;
 
@@ -11,9 +12,11 @@ using OnlineStoreSolution.Data.EF_Core;
 namespace OnlineStoreSolution.Data.Migrations
 {
     [DbContext(typeof(OnlineStoreDBContext))]
-    partial class OnlineStoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20230317152916_AddProductImageTable")]
+    partial class AddProductImageTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
