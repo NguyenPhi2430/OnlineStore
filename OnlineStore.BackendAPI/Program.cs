@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using OnlineStoreSolution.App.Base;
+using OnlineStoreSolution.App.Catalog.Products;
 using OnlineStoreSolution.Data.EF_Core;
 using OnlineStoreSolution.ViewModels.Catalog.Products;
 
@@ -17,7 +19,9 @@ builder.Services.AddSwaggerGen(c=>
 });
 
 // DI Declaration
+builder.Services.AddTransient<IStorageService, FileStorageService>();
 builder.Services.AddTransient<IPublicProductService, PublicProductService>();
+builder.Services.AddTransient<IAdminProductService, AdminProductService>();
 
 var app = builder.Build();
 

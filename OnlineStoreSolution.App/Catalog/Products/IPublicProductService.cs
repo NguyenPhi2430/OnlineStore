@@ -6,11 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineStoreSolution.ViewModels.Catalog.Products
+namespace OnlineStoreSolution.App.Catalog.Products
 {
     public interface IPublicProductService
     {
         Task<PagedViewModel<ProductViewModel>> GetAllByCategoryId(PagedViewRequestPublic request);
-        Task<List<ProductViewModel>> GetAllAsync(); 
+        Task<List<ProductViewModel>> GetAllAsync();
+        Task<ProductViewModel> GetByProductId(int id);
     }
 }

@@ -18,4 +18,8 @@
     <ProjectReference Include="..\OnlineStoreSolution.Data\OnlineStoreSolution.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\user-content\" />
+  </ItemGroup>
+
 </Project>

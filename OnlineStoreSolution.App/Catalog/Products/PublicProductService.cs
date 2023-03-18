@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using OnlineStore.ViewModels.Base;
 using Azure.Core;
 
-namespace OnlineStoreSolution.ViewModels.Catalog.Products
+namespace OnlineStoreSolution.App.Catalog.Products
 {
     public class PublicProductService : IPublicProductService
     {
@@ -70,6 +70,25 @@ namespace OnlineStoreSolution.ViewModels.Catalog.Products
                 totalRecords = totalRows,
             };
             return pagedViewModel;
+        }
+
+        public async Task<ProductViewModel> GetByProductId(int id)
+        {
+            var product = await (from p in _context.Products
+                          where p.Id == id
+                          select p).FirstOrDefaultAsync();
+            var result = new ProductViewModel()
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                SeoAlias = product.SeoAlias,
+                Date = product.Date,
+                Views = product.Views,
+                Stock = product.Stock,
+                Price = product.Price,
+            };
+            return result;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace OnlineStoreSolution.App.Base
     {
         private readonly IStorageService _storageService;
         private readonly string _userFolderContent;
-        private const string USER_FOLDER_NAME = "user";
+        private const string USER_FOLDER_NAME = "user-content";
 
         public FileStorageService(IWebHostEnvironment webHostEnviroment)
         {
