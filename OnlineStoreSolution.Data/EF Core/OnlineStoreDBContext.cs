@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace OnlineStoreSolution.Data.EF_Core
 {
-    public class OnlineStoreDBContext : IdentityDbContext<User,Role,int>
+    public class OnlineStoreDBContext : IdentityDbContext<AppUser,Role,int>
     {
         public OnlineStoreDBContext(DbContextOptions<OnlineStoreDBContext> options) : base(options) { }
  
@@ -52,6 +52,8 @@ namespace OnlineStoreSolution.Data.EF_Core
         public DbSet<ProductInCategory> ProductInCategories { get; set;}
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Cart> Carts { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnlineStoreSolution.Data.Entities
 {
-    public class User : IdentityUser<int>
+    public class AppUser : IdentityUser<int>
     {
         public string firstName { get; set; }
         public string lastName { get; set; }

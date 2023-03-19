@@ -38,9 +38,9 @@ namespace OnlineStoreSolution.Data.Extensions
                     Desc = "Adminnistrator"
                 });
 
-            var hasher = new PasswordHasher<User>();
-            modelBuilder.Entity<User>().HasData(
-                new User
+            var hasher = new PasswordHasher<AppUser>();
+            modelBuilder.Entity<AppUser>().HasData(
+                new AppUser
                 {
                     Id = Admin_Id,
                     UserName = "admin",

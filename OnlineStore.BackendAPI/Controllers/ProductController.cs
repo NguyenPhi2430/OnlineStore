@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OnlineStore.ViewModels.Catalog.ProductImage;
 using OnlineStoreSolution.App.Catalog.Products;
@@ -9,6 +10,7 @@ namespace OnlineStore.BackendAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes = "Bearer")]
     public class ProductController : ControllerBase
     {
         private readonly IPublicProductService _publicProductService;
@@ -19,7 +21,7 @@ namespace OnlineStore.BackendAPI.Controllers
             _adminProductService = adminProductService;
         }
 
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> Get()
         {
             var products = await _publicProductService.GetAllAsync();
@@ -33,7 +35,7 @@ namespace OnlineStore.BackendAPI.Controllers
             return Ok(products);
         }
 
-        [HttpGet("{productId}")]
+        [HttpGet("GetProductById/{productId}")]
         public async Task<IActionResult> GetByProductId(int productId)
         {
             var product = await _publicProductService.GetByProductId(productId);
@@ -71,7 +73,7 @@ namespace OnlineStore.BackendAPI.Controllers
             return Ok();
         }
 
-        [HttpDelete("{productId}")]
+        [HttpDelete("Delete/{productId}")]
         public async Task<IActionResult> Delete(int productId)
         {
             var affected = await _adminProductService.Delete(productId);
