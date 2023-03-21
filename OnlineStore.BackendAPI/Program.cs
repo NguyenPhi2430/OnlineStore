@@ -18,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
 // Register DI for Fluent Validation for all validators in Assembly which contain LoginRequestValidator
 // Meaning all validators in the same project inherit from AbstractValidator 
 builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());

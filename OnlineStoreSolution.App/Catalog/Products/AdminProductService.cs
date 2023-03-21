@@ -1,5 +1,4 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using OnlineShop.Ultilities.Exceptions;
 using OnlineStore.ViewModels.Base;

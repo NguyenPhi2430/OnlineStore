@@ -1,4 +1,5 @@
-﻿using OnlineStore.ViewModels.System;
+﻿using OnlineStore.ViewModels.Base;
+using OnlineStore.ViewModels.System;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace OnlineStoreSolution.App.System.User
 {
     public interface IUserService
     {
-        Task<string> Authencate(LoginRequest request);
+        Task<string> Authenticate(LoginRequest request);
         Task<bool> Register(RegisterRequest request);
+        Task<PagedViewModel<UserViewModel>> GetListUser(GetUserPagingRequest request);
     }
 }

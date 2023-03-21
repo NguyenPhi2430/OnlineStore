@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
+using OnlineStore.ViewModels.Base;
 
 namespace OnlineStoreSolution.App.System.User
 {
@@ -29,7 +30,7 @@ namespace OnlineStoreSolution.App.System.User
             _roleManager = roleManager;
             _config = config;
         }
-        public async Task<string> Authencate(LoginRequest request)
+        public async Task<string> Authenticate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
             if (user == null) { return null; }
@@ -44,6 +45,7 @@ namespace OnlineStoreSolution.App.System.User
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.GivenName, user.firstName),
                 new Claim(ClaimTypes.Role, string.Join(",", roles)),
+                new Claim(ClaimTypes.Name, user.UserName)
             };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Tokens:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -55,6 +57,11 @@ namespace OnlineStoreSolution.App.System.User
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token); 
+        }
+
+        public Task<PagedViewModel<UserViewModel>> GetListUser(GetUserPagingRequest request)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<bool> Register(RegisterRequest request)

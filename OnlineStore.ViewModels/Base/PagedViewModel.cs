@@ -8,7 +8,7 @@ namespace OnlineStore.ViewModels.Base
 {
     public class PagedViewModel<T>
     {
-        public List<T> products { get; set; }
+        public List<T> items { get; set; }
         public int totalRecords { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using OnlineStoreSolution.Data.EF_Core;
 using Microsoft.EntityFrameworkCore;
 
 using OnlineStore.ViewModels.Base;
-using Azure.Core;
+
 
 namespace OnlineStoreSolution.App.Catalog.Products
 {

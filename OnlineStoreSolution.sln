@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2.Domain", "2.Domain", "{D2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.Hosts", "3.Hosts", "{90095C98-4BB3-4124-A092-6489334C9FB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnlineStore.AdminApp", "OnlineStore.AdminApp\OnlineStore.AdminApp.csproj", "{8888AEB5-6DEE-43B3-A6D4-5CBDDE7FDA84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{3356345D-7C07-440A-B784-B35B55908E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3356345D-7C07-440A-B784-B35B55908E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3356345D-7C07-440A-B784-B35B55908E0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8888AEB5-6DEE-43B3-A6D4-5CBDDE7FDA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8888AEB5-6DEE-43B3-A6D4-5CBDDE7FDA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8888AEB5-6DEE-43B3-A6D4-5CBDDE7FDA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8888AEB5-6DEE-43B3-A6D4-5CBDDE7FDA84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{8CFA74A0-1430-4C97-90EE-0188F215119E} = {584D9F0B-4E43-43F8-94CB-99017917A62A}
 		{4E91FF67-1490-428F-95EB-088EA1E67E87} = {584D9F0B-4E43-43F8-94CB-99017917A62A}
 		{3356345D-7C07-440A-B784-B35B55908E0D} = {90095C98-4BB3-4124-A092-6489334C9FB0}
+		{8888AEB5-6DEE-43B3-A6D4-5CBDDE7FDA84} = {90095C98-4BB3-4124-A092-6489334C9FB0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {67559424-78AC-44FF-A7F4-E64081FF520E}
