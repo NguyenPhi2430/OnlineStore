@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
 using OnlineStore.ViewModels.Base;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnlineStoreSolution.App.System.User
 {
@@ -59,9 +60,30 @@ namespace OnlineStoreSolution.App.System.User
             return new JwtSecurityTokenHandler().WriteToken(token); 
         }
 
-        public Task<PagedViewModel<UserViewModel>> GetListUser(GetUserPagingRequest request)
+        public async Task<PagedViewModel<UserViewModel>> GetListUser(GetUserPagingRequest request)
         {
-            throw new NotImplementedException();
+            var query = _userManager.Users;
+            if (!string.IsNullOrEmpty(request.Keyword))
+            {
+                query = query.Where(x => x.UserName.Contains(request.Keyword));
+            }
+
+            int totalRows = await query.CountAsync();
+            var data = await query.Skip((request.PageIndex - 1)* request.PageSize).Take(request.PageSize)
+                                   .Select(x=> new UserViewModel()
+                                   {
+                                       FirstName = x.firstName,
+                                       LastName = x.lastName,
+                                       Id = x.Id,
+                                       Email = x.Email,
+                                       PhoneNumber = x.PhoneNumber,
+                                       UserName  = x.UserName,
+                                   }).ToListAsync();
+            return new PagedViewModel<UserViewModel>()
+            {
+                items = data,
+                totalRecords = totalRows,
+            };
         }
 
         public async Task<bool> Register(RegisterRequest request)

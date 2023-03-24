@@ -111,7 +111,7 @@ namespace OnlineStoreSolution.App.Catalog.Products
 
             //Paging
             int totalRows = await query.CountAsync();
-            var data = await query.Skip((request.pageIndex - 1) * request.pageSize).Take(request.pageSize)
+            var data = await query.Skip((request.PageIndex - 1) * request.PageSize).Take(request.PageSize)
                                     .Select(x => new ProductViewModel()
                                     {
                                         Id = x.p.Id,
@@ -127,7 +127,7 @@ namespace OnlineStoreSolution.App.Catalog.Products
             //Paging Result
             var pagedViewModel = new PagedViewModel<ProductViewModel>()
             {
-                products = data,
+                items = data,
                 totalRecords = totalRows,
             };
             return pagedViewModel;

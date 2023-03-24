@@ -25,7 +25,7 @@ namespace OnlineStore.BackendAPI.Controllers
                 return BadRequest(ModelState);
             }
             var resultToken = await _userService.Authenticate(request);
-            if (resultToken == null)
+            if (string.IsNullOrEmpty(resultToken))
             {
                 return BadRequest("Username or password is incorrect");
             }
@@ -34,7 +34,7 @@ namespace OnlineStore.BackendAPI.Controllers
 
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        public async Task<IActionResult> Register([FromBody]RegisterRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -46,6 +46,13 @@ namespace OnlineStore.BackendAPI.Controllers
                 return BadRequest("Register is unsuccessful");
             }
             return Ok();
+        }
+        [AllowAnonymous]
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetUsersPaging([FromQuery]GetUserPagingRequest request)
+        {
+            var listUsers = await _userService.GetListUser(request);
+            return Ok(listUsers);
         }
     }
 }

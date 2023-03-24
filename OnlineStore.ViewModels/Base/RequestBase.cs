@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.ViewModels.Base
 {
-    public class PagingBase : RequestBase
+    public class RequestBase
     {
-        public int PageIndex { get; set; }
-        public int PageSize { get; set; }
+        public string? BearerToken { get; set; }
     }
 }

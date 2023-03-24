@@ -9,6 +9,6 @@ namespace OnlineStore.ViewModels.System
 {
     public class GetUserPagingRequest : PagingBase
     {
-        public string Keyword { get; set; }
+        public string? Keyword { get; set; }
     }
 }
