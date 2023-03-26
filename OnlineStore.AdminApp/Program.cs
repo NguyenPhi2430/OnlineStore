@@ -18,8 +18,8 @@ builder.Services.AddRazorPages()
 //Cookie
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(o =>
 {
-    o.LoginPath = "/Users/Login";
-    o.AccessDeniedPath = "/Users/Forbidden";
+    o.LoginPath = "/User/Login";
+    o.AccessDeniedPath = "/User/Forbidden";
 });
 
 //Session
@@ -49,8 +49,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 app.UseSession();
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+         name: "Default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+        );
+});
 
 app.Run();

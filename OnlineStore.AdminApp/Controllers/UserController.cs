@@ -12,11 +12,11 @@ using System.Text;
 
 namespace OnlineStore.AdminApp.Controllers
 {
-    public class UsersController : Controller
+    public class UserController : Controller
     {
         private readonly IUserAPIClient _userAPIClient;
         private readonly IConfiguration _configs;
-        public UsersController(IUserAPIClient userAPIClient, IConfiguration configs)
+        public UserController(IUserAPIClient userAPIClient, IConfiguration configs)
         {
             _userAPIClient = userAPIClient;
             _configs = configs;
@@ -24,16 +24,14 @@ namespace OnlineStore.AdminApp.Controllers
 
         public async Task<IActionResult> Index(string keyword, int pageIndex = 1, int pageSize = 10)               
         {
-            var session = HttpContext.Session.GetString("Token");
             var request = new GetUserPagingRequest
             {
                 Keyword = keyword,
-                BearerToken = session,
                 PageIndex = pageIndex,
                 PageSize = pageSize,
             };
             var data = await _userAPIClient.GetUsersPaging(request);
-            return View(data);
+            return View(data.ResultObject);
         }
 
         [HttpPost]
@@ -41,7 +39,7 @@ namespace OnlineStore.AdminApp.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             HttpContext.Session.Remove("Token");
-            return RedirectToAction("Login","Users");
+            return RedirectToAction("Login","User");
         }
 
         [HttpPost]
@@ -51,14 +49,52 @@ namespace OnlineStore.AdminApp.Controllers
             {
                 return View();
             }
-            bool IsSuccess = await _userAPIClient.CreateUser(request);
-            if (IsSuccess == true) 
+            var result = await _userAPIClient.CreateUser(request);
+            if (result.IsSuccess == true) 
             {
                 return RedirectToAction("Index");
             }
+            ModelState.AddModelError("", result.Message);
             return View(request);
-
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var result = await _userAPIClient.GetUserById(id);
+            if (result.IsSuccess)
+            {
+                var user = result.ResultObject;
+                var updateRequest = new UserUpdateRequest()
+                {
+                    BirthDay = user.BirthDay,
+                    Email = user.Email,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    PhoneNumber = user.PhoneNumber,
+                    Id = id
+                };
+                return View(updateRequest);
+            }
+            return RedirectToAction("Error", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserUpdateRequest request)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View(ModelState);
+            }
+            var result = await _userAPIClient.Edit(request.Id ,request);
+            if (result.IsSuccess == true)
+            {
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", result.Message);
+            return View(request);
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -78,14 +114,14 @@ namespace OnlineStore.AdminApp.Controllers
             }
             var token =await _userAPIClient.Authenticate(request);
            
-            var principle = this.ValidateToken(token);
+            var principle = this.ValidateToken(token.ResultObject);
             var authProperties = new AuthenticationProperties()
             {
                 ExpiresUtc = DateTime.UtcNow.AddMinutes(10),
                 IsPersistent = true,
             };
 
-            HttpContext.Session.SetString("Token", token);
+            HttpContext.Session.SetString("Token", token.ResultObject);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,principle, authProperties);
 
