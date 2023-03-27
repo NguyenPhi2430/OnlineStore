@@ -15,5 +15,6 @@ namespace OnlineStoreSolution.App.System.User
         Task<ApiResult<PagedViewModel<UserViewModel>>> GetListUser(GetUserPagingRequest request);
         Task<ApiResult<bool>> Edit(int id, UserUpdateRequest request);
         Task<ApiResult<UserViewModel>> GetUserById(int id);
+        Task<ApiResult<bool>> Delete(int id);
     }
 }

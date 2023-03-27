@@ -12,5 +12,6 @@ namespace OnlineStore.AdminApp.Services
         Task<ApiResult<bool>> CreateUser(RegisterRequest request);
         Task<ApiResult<bool>> Edit(int id, UserUpdateRequest request);
         Task<ApiResult<UserViewModel>> GetUserById(int id);
+        Task<ApiResult<bool>> Delete(int id);
     }
 }

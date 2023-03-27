@@ -30,6 +30,11 @@ namespace OnlineStore.AdminApp.Controllers
                 PageIndex = pageIndex,
                 PageSize = pageSize,
             };
+            ViewBag.Keyword = keyword;
+            if (TempData["Success"] != null)
+            {
+                ViewBag.SuccessMessage = TempData["Success"]; 
+            }
             var data = await _userAPIClient.GetUsersPaging(request);
             return View(data.ResultObject);
         }
@@ -52,6 +57,37 @@ namespace OnlineStore.AdminApp.Controllers
             var result = await _userAPIClient.CreateUser(request);
             if (result.IsSuccess == true) 
             {
+                TempData["Success"] = "Create successful.";
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", result.Message);
+            return View(request);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var result = await _userAPIClient.GetUserById(id);
+            return View(result.ResultObject);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var userDelete = new UserDeleteRequest() { Id = id};
+            return View(userDelete);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(UserDeleteRequest request)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View();
+            }
+            var result = await _userAPIClient.Delete(request.Id);
+            if (result.IsSuccess == true)
+            {
+                TempData["Success"] = "Delete successful.";
                 return RedirectToAction("Index");
             }
             ModelState.AddModelError("", result.Message);
@@ -89,6 +125,7 @@ namespace OnlineStore.AdminApp.Controllers
             var result = await _userAPIClient.Edit(request.Id ,request);
             if (result.IsSuccess == true)
             {
+                TempData["Success"] = "Edit successful.";
                 return RedirectToAction("Index");
             }
             ModelState.AddModelError("", result.Message);
@@ -113,8 +150,15 @@ namespace OnlineStore.AdminApp.Controllers
                 return View(ModelState);
             }
             var token =await _userAPIClient.Authenticate(request);
+
+            if (token.ResultObject == null)
+            {
+                ModelState.AddModelError("", token.Message);
+                return View();
+            }
            
             var principle = this.ValidateToken(token.ResultObject);
+            
             var authProperties = new AuthenticationProperties()
             {
                 ExpiresUtc = DateTime.UtcNow.AddMinutes(10),

@@ -34,10 +34,10 @@ namespace OnlineStoreSolution.App.System.User
         public async Task<ApiResult<string>> Authenticate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null) { return null; }
+            if (user == null) { return new ApiResultError<string>("User not exist"); }
 
             SignInResult result = await _signInManager.PasswordSignInAsync(user, request.Password, request.IsRememberd, false);
-            if (!result.Succeeded) { return null; };
+            if (!result.Succeeded) { return new ApiResultError<string>("Login unsuccessful"); };
 
             var roles = await _userManager.GetRolesAsync(user);
 
@@ -60,6 +60,17 @@ namespace OnlineStoreSolution.App.System.User
             {
                 ResultObject = new JwtSecurityTokenHandler().WriteToken(token)
             };
+        }
+
+        public async Task<ApiResult<bool>> Delete(int id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null) 
+            {
+                return new ApiResultError<bool>("Can't not find any user with that ID");
+            }
+            await _userManager.DeleteAsync(user);
+            return new ApiResultSuccess<bool>();
         }
 
         public async Task<ApiResult<bool>> Edit(int id, UserUpdateRequest request)

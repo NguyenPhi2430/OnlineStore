@@ -31,12 +31,11 @@ namespace OnlineStore.AdminApp.Services
 
             var response = await client.PostAsync("/api/users/authenticate", stringContent);
             var token = await response.Content.ReadAsStringAsync();
-            JsonConvert.DeserializeObject<ApiResult<string>>(token);
             if (response.IsSuccessStatusCode)
             {
-                return JsonConvert.DeserializeObject<ApiResultSuccess<string>>(token);
+                return new ApiResultSuccess<string>(token);
             } 
-            return JsonConvert.DeserializeObject<ApiResultError<string>>(token);
+            return new ApiResultError<string>(token);
         }
 
         public async Task<ApiResult<bool>> CreateUser(RegisterRequest request)
@@ -51,9 +50,9 @@ namespace OnlineStore.AdminApp.Services
             var result = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                return JsonConvert.DeserializeObject<ApiResultSuccess<bool>>(result);
+                return new ApiResultSuccess<bool>();
             }
-            return JsonConvert.DeserializeObject<ApiResultError<bool>>(result);
+            return new ApiResultError<bool>(result);
         }
 
         public async Task<ApiResult<bool>> Edit(int id, UserUpdateRequest request)
@@ -73,7 +72,7 @@ namespace OnlineStore.AdminApp.Services
                 var kq = new ApiResultSuccess<bool>();
                 return kq;
             }
-            return JsonConvert.DeserializeObject<ApiResultError<bool>>(" ");
+            return new ApiResultError<bool>();
         }
 
         public async Task<ApiResult<UserViewModel>> GetUserById(int id)
@@ -107,6 +106,24 @@ namespace OnlineStore.AdminApp.Services
             var listUsers = JsonConvert.DeserializeObject <ApiResult<PagedViewModel<UserViewModel>>>(body);
 
             return listUsers;
+        }
+
+        public async Task<ApiResult<bool>> Delete(int id)
+        {
+            using var client = _httpClientFactory.CreateClient();
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+
+            var session = _contextAccessor.HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session);
+
+            var response = await client.DeleteAsync($"/api/users/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var kq = new ApiResultSuccess<bool>();
+                return kq;
+            }
+            return new ApiResultError<bool>("Delete Unsuccessful");
         }
     }
 }

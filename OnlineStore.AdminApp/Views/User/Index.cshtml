@@ -10,8 +10,23 @@
 <h1>User List</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <form asp-action="Create" method="get">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
 </p>
+<div>
+    <form asp-action="index" method="get">
+        <input name="keyword" value=@ViewBag.Keyword type="text" class="form-control"/>
+        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-primary" onclick="window.local.href='/user/index'">Reset</button>
+    </form>
+</div>
+<div>
+    @if(ViewBag.SuccessMessage != null)
+    {
+        <div id="msgAlert" class="alert alert-success" role="alert">@ViewBag.SuccessMessage</div>
+    }
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -59,8 +74,8 @@
             </td>
             <td>
                     @Html.ActionLink("Edit", "Edit", "User", new {id = item.Id}) |
-                    @Html.ActionLink("Details", "Details", new {  id=item.Id}) |
-                    @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+                    @Html.ActionLink("Details", "Details", "User", new {  id=item.Id}) |
+                    @Html.ActionLink("Delete", "Delete", "User", new {  id=item.Id })
             </td>
         </tr>
 }

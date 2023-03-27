@@ -28,9 +28,9 @@ namespace OnlineStore.BackendAPI.Controllers
             var resultToken = await _userService.Authenticate(request);
             if (string.IsNullOrEmpty(resultToken.ResultObject))
             {
-                return BadRequest("Username or password is incorrect");
+                return BadRequest(resultToken.Message);
             }
-            return Ok(resultToken);
+            return Ok(resultToken.ResultObject);
         }
 
         [HttpPost("register")]
@@ -79,6 +79,14 @@ namespace OnlineStore.BackendAPI.Controllers
         {
             var user = await _userService.GetUserById(id);
             return Ok(user);
+        }
+
+        [AllowAnonymous]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _userService.Delete(id);
+            return Ok();
         }
     }
 }
