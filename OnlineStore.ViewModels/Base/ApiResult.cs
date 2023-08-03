@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace OnlineStore.ViewModels.Base
 {
-    public class PagingBase
+    public class ApiResult<T>
     {
-        public int PageIndex { get; set; }
-        public int PageSize { get; set; }
+        public bool IsSuccess { get; set; }
+        public string Message { get; set; }
+        public T ResultObject { get; set; }
     }
 }

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineStore.ViewModels.Base
+namespace OnlineStore.ViewModels.System
 {
-    public class RequestBase
+    public class UserDeleteRequest
     {
-        public string? BearerToken { get; set; }
+        public int Id { get; set; }
     }
 }

@@ -31,13 +31,13 @@ namespace OnlineStoreSolution.App.System.User
             _roleManager = roleManager;
             _config = config;
         }
-        public async Task<string> Authenticate(LoginRequest request)
+        public async Task<ApiResult<string>> Authenticate(LoginRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null) { return null; }
+            if (user == null) { return new ApiResultError<string>("User not exist"); }
 
             SignInResult result = await _signInManager.PasswordSignInAsync(user, request.Password, request.IsRememberd, false);
-            if(!result.Succeeded) { return null; };
+            if (!result.Succeeded) { return new ApiResultError<string>("Login unsuccessful"); };
 
             var roles = await _userManager.GetRolesAsync(user);
 
@@ -56,11 +56,46 @@ namespace OnlineStoreSolution.App.System.User
                 claims,
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
-
-            return new JwtSecurityTokenHandler().WriteToken(token); 
+            return new ApiResultSuccess<string>()
+            {
+                ResultObject = new JwtSecurityTokenHandler().WriteToken(token)
+            };
         }
 
-        public async Task<PagedViewModel<UserViewModel>> GetListUser(GetUserPagingRequest request)
+        public async Task<ApiResult<bool>> Delete(int id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null) 
+            {
+                return new ApiResultError<bool>("Can't not find any user with that ID");
+            }
+            await _userManager.DeleteAsync(user);
+            return new ApiResultSuccess<bool>();
+        }
+
+        public async Task<ApiResult<bool>> Edit(int id, UserUpdateRequest request)
+        {
+            var userWithSameEmail = await _userManager.Users.AnyAsync(x => x.Email == request.Email && x.Id != id);
+            if (userWithSameEmail)
+            {
+                return new ApiResultError<bool>("Email đã tồn tại");
+            }
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user.Email = request.Email;
+            user.firstName = request.FirstName;
+            user.lastName = request.LastName;
+            user.PhoneNumber = request.PhoneNumber;
+            user.dateOfBirth = request.BirthDay;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return new ApiResultSuccess<bool>();
+            }
+            return new ApiResultError<bool>("Edit not successful.");
+        }
+
+        public async Task<ApiResult<PagedViewModel<UserViewModel>>> GetListUser(GetUserPagingRequest request)
         {
             var query = _userManager.Users;
             if (!string.IsNullOrEmpty(request.Keyword))
@@ -79,15 +114,49 @@ namespace OnlineStoreSolution.App.System.User
                                        PhoneNumber = x.PhoneNumber,
                                        UserName  = x.UserName,
                                    }).ToListAsync();
-            return new PagedViewModel<UserViewModel>()
+            var result =  new PagedViewModel<UserViewModel>()
             {
                 items = data,
                 totalRecords = totalRows,
             };
+            return new ApiResultSuccess<PagedViewModel<UserViewModel>> { ResultObject = result };
         }
 
-        public async Task<bool> Register(RegisterRequest request)
+        public async Task<ApiResult<UserViewModel>> GetUserById(int id)
         {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                return new ApiResultError<UserViewModel>("Cannot find any user with that id");
+            }
+            var userGet = new UserViewModel()
+            {
+                FirstName = user.firstName,
+                LastName = user.lastName,
+                Id = user.Id,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                UserName = user.UserName,
+                BirthDay = user.dateOfBirth
+            };
+            return new ApiResultSuccess<UserViewModel>(userGet);
+        }
+
+        public async Task<ApiResult<bool>> Register(RegisterRequest request)
+        {
+            var userName = await _userManager.FindByNameAsync(request.UserName);
+            if (userName != null) 
+            {
+
+                return new ApiResultError<bool>("User Name already exits.");
+            }
+            var email  = await _userManager.FindByEmailAsync(request.Email);
+            if (email != null)
+            {
+
+                return new ApiResultError<bool>("Email already exits.");
+            }
+
             var user = new AppUser()
             {
                 dateOfBirth = request.BirthDay,
@@ -99,8 +168,8 @@ namespace OnlineStoreSolution.App.System.User
             };
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded) 
-            { return true; }
-            return false;
+            { return new ApiResultSuccess<bool>(); }
+            return new ApiResultError<bool>("Unsuccessfully add new user.");
         }
     }
 }
